@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BlockchainFinder</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('form').submit(function(e) {
+        e.preventDefault();
+        var blockId = $('#texte').val(); 
+        $.ajax({
+          url: 'https://blockchain.info/rawblock/' + blockId, 
+          type: 'GET',
+          success: function(response) {
+            $('#resultat').text('Bloc : ' + JSON.stringify(response));
+            console.log(response)
+          },
+          error: function() {
+            $('#resultat').text('Une erreur s\'est produite ');
+          }
+        });     
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>BlockchainFinder</h1>
+  <form>
+    <label for="texte">Identifiant du bloc :</label>
+    <input type="text" id="texte" required>
+    <br><br>
+    <input type="submit" value="Obtenir le bloc">
+  </form>
+
+  <div id="resultat"></div>
+
+</body>
+</html>
